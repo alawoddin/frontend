@@ -1,24 +1,21 @@
 import React from 'react'
-import Welcome from './components/Welcome'
-import { Route, Routes ,BrowserRouter as Router,  Link } from 'react-router-dom'
-import About from './pages/About'
-import Contact from './pages/Contact'
+import { Route, Routes ,BrowserRouter as Router } from 'react-router-dom'
+
 import Home from './pages/Home'
+import Navbar from './components/Navbar'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 const App = () => {
   return (
     <>
     <Router>
-        <nav>
-          <Link to="/">Home</Link> | {" "}
-          <Link to="/About">About</Link> | {" "}
-          <Link to="/Contact">Contact</Link> 
-        </nav>
+        <Navbar />
 
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/About' element={<About />} />
-          <Route path='/Contact' element={<Contact />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
         </Routes>
     </Router>
     {/* <Welcome name="alawoddin"/> */}
