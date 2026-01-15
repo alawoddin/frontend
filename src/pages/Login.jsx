@@ -16,8 +16,7 @@ const Login = () => {
         e.preventDefault();
         setloading(true);
         setMessage("");
-        console.log("email :" , email);
-        console.log("password :" , password);
+     
 
         try {
              const response = await api.post('/login', {
@@ -29,8 +28,7 @@ const Login = () => {
              localStorage.setItem('token', token);
 
              setMessage(response.data.message);
-             console.log("response data :", response.data.user);
-             console.log("token :", token);
+             
             
         } catch (error) {
             if(error.response && error.response.data.message){
