@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import api from '../axios';
 
@@ -11,6 +11,10 @@ const Login = () => {
     const [message, setMessage] = useState("");
 
     const [loading , setloading] = useState(false);
+
+     // route
+
+    const negivate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,6 +32,7 @@ const Login = () => {
              localStorage.setItem('token', token);
 
              setMessage(response.data.message);
+             negivate('/dashboard');
              
             
         } catch (error) {
