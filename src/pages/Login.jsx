@@ -1,15 +1,48 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import api from '../axios';
+
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const [message, setMessage] = useState("");
+
+    const [loading , setloading] = useState(false);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setloading(true);
+        setMessage("");
         console.log("email :" , email);
         console.log("password :" , password);
+
+        try {
+             const response = await api.post('/login', {
+                email: email,
+                password: password
+             });
+
+             const token = response.data.token;
+             localStorage.setItem('token', token);
+
+             setMessage(response.data.message);
+             console.log("response data :", response.data.user);
+             console.log("token :", token);
+            
+        } catch (error) {
+            if(error.response && error.response.data.message){
+                setMessage(error.response.data.message);
+           
+        } else {
+                    setMessage("An error occurred. Please try again.");
+                }
+            } finally {
+                setloading(false);
+            }
+        
 
     }
   return (
@@ -60,8 +93,10 @@ const Login = () => {
                     type="submit"
                     className="mt-8 py-3 w-full cursor-pointer rounded-md bg-indigo-600 text-white transition hover:bg-indigo-700"
                 >
-                    Login
+                    {loading ? 'Signing in...' : 'Sign in'}
                 </button>
+
+                {message && <p className='text-red-500 text-center mt-4'>{message}</p>}
                 <p className='text-center py-8'>
                     Don't have an account? <Link to="/register"  className="text-indigo-600 hover:underline">Sign up</Link>
                 </p>
