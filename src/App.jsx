@@ -11,6 +11,7 @@ import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
+import ProtectUrl from './components/ProtectUrl'
 
 const AppContent = () => {
   const location = useLocation()
@@ -25,7 +26,14 @@ const AppContent = () => {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+       <Route
+  path="/dashboard"
+  element={
+    <ProtectUrl>
+      <Dashboard />
+    </ProtectUrl>
+  }
+/>
       </Routes>
     </>
   )
