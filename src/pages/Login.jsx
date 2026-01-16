@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import api from '../axios';
+// import api from '../../../../both1/both/karmands/axios';
+import api from "axios";
 
 const Login = () => {
 
