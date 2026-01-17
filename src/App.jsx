@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectUrl from "./components/ProtectUrl";
 import Projects from "./pages/Projects";
+import AddProject from "./pages/AddProject";
 
 const AppContent = () => {
   const location = useLocation();
@@ -41,6 +42,15 @@ const AppContent = () => {
           element={
             <ProtectUrl>
               <Projects />
+            </ProtectUrl>
+          }
+        />
+
+            <Route
+          path="/Project/add"
+          element={
+            <ProtectUrl>
+              <AddProject />
             </ProtectUrl>
           }
         />

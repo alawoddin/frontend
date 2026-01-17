@@ -73,6 +73,20 @@ export default function DashboardLayout({ children }) {
             {sidebarOpen && "Projects"}
           </NavLink>
 
+             <NavLink
+            to="/project/add"
+            className={({ isActive }) =>
+              `flex items-center gap-3 rounded-md px-3 py-2 transition ${
+                isActive
+                  ? "bg-indigo-100 text-indigo-600 border-l-4 border-indigo-500"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`
+            }
+          >
+            <FiUser />
+            {sidebarOpen && "add Project"}
+          </NavLink>
+
           <NavLink
             to="/tasks"
             className={({ isActive }) =>
