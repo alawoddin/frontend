@@ -32,6 +32,28 @@ export default function Projects() {
 
     fetchProjects(); // ✅ IMPORTANT
   }, []);
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this project?");
+    if (!confirmDelete) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      await api.delete(`/projects/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setProjects(Projects.filter(project => project.id !== id));
+
+      alert("Project deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting project:", error);
+      alert("Failed to delete project. Please try again.");
+    }
+ 
+  }
 return (
   <DashboardLayout>
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -126,7 +148,7 @@ return (
                     <Link to={`/project/edit/${project.id}`} className="px-3 py-1 bg-yellow-400 text-white text-sm rounded hover:bg-yellow-500 transition">
                       Edit
                     </Link>
-                    <button className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition">
+                    <button onClick={() => handleDelete(project.id)} className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition">
                       Delete
                     </button>
                   </td>
