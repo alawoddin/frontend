@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectUrl from "./components/ProtectUrl";
 import Projects from "./pages/Projects";
 import AddProject from "./pages/AddProject";
+import EditProject from "./pages/EditProject";
 
 const AppContent = () => {
   const location = useLocation();
@@ -54,6 +55,16 @@ const AppContent = () => {
             </ProtectUrl>
           }
         />
+
+    <Route
+  path="/project/edit/:id"
+  element={
+    <ProtectUrl>
+      <EditProject />
+    </ProtectUrl>
+  }
+/>
+
 
 
       </Routes>

@@ -24,7 +24,7 @@ export default function AddProject() {
         await api.post('/projects' , {
           name: title,
           info: info,
-          dueDate: dueDate
+          due_date: dueDate
         }, {
           headers : {
             Authorization: `Bearer ${token}`

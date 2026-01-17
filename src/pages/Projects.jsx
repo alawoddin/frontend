@@ -4,6 +4,7 @@ import api from "../axios";
 
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Projects() {
   const [Projects, setProjects] = useState([]);
@@ -122,9 +123,9 @@ return (
                     <button className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition">
                       View
                     </button>
-                    <button className="px-3 py-1 bg-yellow-400 text-white text-sm rounded hover:bg-yellow-500 transition">
+                    <Link to={`/project/edit/${project.id}`} className="px-3 py-1 bg-yellow-400 text-white text-sm rounded hover:bg-yellow-500 transition">
                       Edit
-                    </button>
+                    </Link>
                     <button className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition">
                       Delete
                     </button>
