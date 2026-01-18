@@ -16,6 +16,7 @@ import Projects from "./pages/Projects";
 import AddProject from "./pages/AddProject";
 import EditProject from "./pages/EditProject";
 import Tasks from "./pages/Tasks";
+import AddTask from "./pages/AddTask";
 
 const AppContent = () => {
   const location = useLocation();
@@ -67,13 +68,22 @@ const AppContent = () => {
 />
 
     <Route
-  path="/Tasks" 
+  path="/Task" 
   element={
     <ProtectUrl>
       <Tasks />
     </ProtectUrl>
   }
 />
+
+       <Route
+          path="/Task/add"
+          element={
+            <ProtectUrl>
+              <AddTask />
+            </ProtectUrl>
+          }
+        />
 
 
 
