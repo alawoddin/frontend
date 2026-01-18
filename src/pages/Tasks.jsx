@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import DashboardLayout from "../components/Dashboardlayout";
 import api from "../axios";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -24,6 +27,29 @@ export default function TasksPage() {
     };
     fetchTasks();
   }, []);
+
+    const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this task?");
+    if (!confirmDelete) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      await api.delete(`/tasks/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setTasks(tasks.filter(task => task.id !== id));
+
+      alert("Task deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting project:", error);
+      alert("Failed to delete Task. Please try again.");
+    }
+ 
+  }
+
 
   // Skeleton row component
   const SkeletonRow = () => (
@@ -106,6 +132,29 @@ export default function TasksPage() {
       <div className="p-6 bg-gray-50 min-h-screen">
         <h1 className="text-2xl font-semibold text-gray-800 mb-6">Tasks</h1>
 
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-semibold text-gray-800">Tasks</h1>
+          <button
+            onClick={() => navigate("/tasks/add")} // Or your add task route
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center gap-2 transition"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+            Add New Task
+          </button>
+        </div>
+
         <div className="overflow-x-auto bg-white shadow-md rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-100">
@@ -137,7 +186,10 @@ export default function TasksPage() {
             <tbody className="divide-y divide-gray-200">
               {tasks.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="px-6 py-4 text-center text-gray-500">
+                  <td
+                    colSpan="7"
+                    className="px-6 py-4 text-center text-gray-500"
+                  >
                     No tasks found
                   </td>
                 </tr>
@@ -164,12 +216,15 @@ export default function TasksPage() {
                       <button className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition">
                         View
                       </button>
-                      <button className="px-3 py-1 bg-yellow-400 text-white text-sm rounded hover:bg-yellow-500 transition">
+                      <Link
+                        to={`/task/edit/${task.id}`}
+                        className="px-3 py-1 bg-yellow-400 text-white text-sm rounded hover:bg-yellow-500 transition"
+                      >
                         Edit
-                      </button>
-                      <button className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition">
-                        Delete
-                      </button>
+                      </Link>
+                       <button onClick={() => handleDelete(task.id)} className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition">
+                      Delete
+                    </button>
                     </td>
                   </tr>
                 ))

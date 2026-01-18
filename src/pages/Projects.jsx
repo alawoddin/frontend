@@ -4,12 +4,15 @@ import api from "../axios";
 
 
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Projects() {
   const [Projects, setProjects] = useState([]);
 
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -61,9 +64,27 @@ return (
         Projects
       </h1>
 
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-semibold text-gray-800">Tasks</h1>
+        <button
+          onClick={() => navigate('/project/add')} // Or your add task route
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center gap-2 transition"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          Add New Task
+        </button>
+      </div>
+
+
+
       {loading ? (
         // 🔹 SKELETON LOADING
         <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+
+    
+
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-100">
               <tr>

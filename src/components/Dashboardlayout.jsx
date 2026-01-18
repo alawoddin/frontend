@@ -98,7 +98,7 @@ export default function DashboardLayout({ children }) {
             }
           >
             <FiSettings />
-            {sidebarOpen && "Tasks"}
+            {sidebarOpen && "Task"}
           </NavLink>
         </nav>
 
