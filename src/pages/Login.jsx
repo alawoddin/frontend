@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import api from '../axios';
+import { toast } from 'react-toastify';
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [message, setMessage] = useState("");
+    // const [message, setMessage] = useState("");
 
     const [loading , setloading] = useState(false);
 
@@ -19,7 +20,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setloading(true);
-        setMessage("");
+        // setMessage("");
      
 
         try {
@@ -33,16 +34,19 @@ const Login = () => {
              const user = response.data.user;
              localStorage.setItem('user', JSON.stringify(user));
 
-             setMessage(response.data.message);
+             //setMessage(response.data.message);
+             toast.success(response.data.message);
              negivate('/dashboard');
              
             
         } catch (error) {
             if(error.response && error.response.data.message){
-                setMessage(error.response.data.message);
+               // setMessage(error.response.data.message);
+                toast.error(error.response.data.message);
            
         } else {
-                    setMessage("An error occurred. Please try again.");
+                toast.error("Something want error");
+
                 }
             } finally {
                 setloading(false);
@@ -101,7 +105,7 @@ const Login = () => {
                     {loading ? 'Signing in...' : 'Sign in'}
                 </button>
 
-                {message && <p className='text-red-500 text-center mt-4'>{message}</p>}
+                {/* {message && <p className='text-red-500 text-center mt-4'>{message}</p>} */}
                 <p className='text-center py-8'>
                     Don't have an account? <Link to="/register"  className="text-indigo-600 hover:underline">Sign up</Link>
                 </p>

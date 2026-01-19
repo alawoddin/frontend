@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import api from "../axios";
+import { toast } from "react-toastify";
 
 const Register = () => {
   
     const [name, setname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
+    // const [message, setMessage] = useState("");
     const [loading , setloading] = useState(false);
 
     // route
@@ -18,7 +19,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setloading(true);
-        setMessage("");
+        // setMessage("");
    
 
         try {
@@ -29,16 +30,19 @@ const Register = () => {
              });
 
 
-             setMessage(response.data.message);
+            //  setMessage(response.data.message);
+             toast.success(response.data.message);
              negivate('/Login');
 
             
         } catch (error) {
             if(error.response && error.response.data.message){
-                setMessage(error.response.data.message);
+                // setMessage(error.response.data.message);
+                toast.error(error.response.data.message);
            
         } else {
-                    setMessage("An error occurred. Please try again.");
+                    // setMessage("An error occurred. Please try again.");
+                    toast.error("An error occurred. Please try again.");
                 }
             } finally {
                 setloading(false);
@@ -86,7 +90,7 @@ const Register = () => {
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
 
-           {message && <p className='text-red-500 text-center mt-4'>{message}</p>}
+           {/* {message && <p className='text-red-500 text-center mt-4'>{message}</p>} */}
 
           <p className="text-center mt-4">
             Already have an account?{" "}
