@@ -30,6 +30,8 @@ const Login = () => {
 
              const token = response.data.token;
              localStorage.setItem('token', token);
+             const user = response.data.user;
+             localStorage.setItem('user', JSON.stringify(user));
 
              setMessage(response.data.message);
              negivate('/dashboard');
