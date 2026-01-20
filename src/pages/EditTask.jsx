@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../axios";
 import { useNavigate, useParams } from "react-router-dom";
 import DashboardLayout from "../components/Dashboardlayout";
+import { toast } from "react-toastify";
 
 export default function EditTask() {
   const { id } = useParams(); // Get task ID from URL
@@ -114,7 +115,8 @@ export default function EditTask() {
         }
       );
 
-      alert("Task updated successfully!");
+      // alert("Task updated successfully!");
+      toast.success("Task updated successfully!");
       navigate("/tasks");
       
     } catch (error) {
@@ -134,7 +136,8 @@ export default function EditTask() {
         navigate('/login');
       } else {
         setError(error.response?.data?.message || "Failed to update task. Please try again.");
-        alert(error.response?.data?.message || "Failed to update task. Please try again.");
+        // alert(error.response?.data?.message || "Failed to update task. Please try again.");
+        toast.error(error.response?.data?.message || "Failed to update task. Please try again.");
       }
     } finally {
       setLoading(false);

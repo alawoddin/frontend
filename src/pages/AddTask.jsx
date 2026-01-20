@@ -5,6 +5,7 @@ import api from "../axios";
 import { useNavigate } from "react-router-dom";
 
 import DashboardLayout from "../components/Dashboardlayout";
+import { toast } from "react-toastify";
 
 export default function AddTask() {
   const [Projects, setProjects] = useState([]);
@@ -29,6 +30,7 @@ export default function AddTask() {
             Authorization: `Bearer ${token}`,
           },
         });
+
 
         setProjects(response.data);
       } catch (error) {
@@ -63,12 +65,14 @@ export default function AddTask() {
         },
       );
 
-      alert("Task added successfully!");
+      toast.success("Task added successfully!");
+      // alert("Task added successfully!");
 
       Navigate("/tasks");
     } catch (error) {
       console.log("error is adding in project", error);
-      alert("Failed to add project. Please try again.");
+      // alert("Failed to add project. Please try again.");
+      toast.error("Failed to add task. Please try again.");
     } finally {
       setLoading(false);
     }

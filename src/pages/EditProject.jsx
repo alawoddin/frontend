@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {  } from "react-router-dom";
 
 import DashboardLayout from "../components/Dashboardlayout";
+import { toast } from "react-toastify";
 
 
 
@@ -69,12 +70,14 @@ const { id } = useParams();
       }
     });
 
-    alert("Project updated successfully!"); // Changed message
+    // alert("Project updated successfully!"); // Changed message
+    toast.success("Project updated successfully!");
     Navigate('/projects');
     
   } catch (error) {
     console.log("Error updating project:", error.response?.data || error);
-    alert("Failed to update project. Please try again.");
+    // alert("Failed to update project. Please try again.");
+    toast.error("Failed to update project. Please try again.");
   } finally {
     setLoading(false);
   }
